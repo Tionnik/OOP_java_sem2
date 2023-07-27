@@ -8,8 +8,9 @@ import OOP_java_sem2.shipment.Beverage;
 import OOP_java_sem2.shipment.Food;
 import OOP_java_sem2.shipment.Hot_beverage;
 import OOP_java_sem2.shipment.Product;
+
                                                 //Класс для формирования и оплаты списка покупок
-public class Add_Order {
+public class Add_Order{
 
     public ArrayList <Order> getList_order(ArrayList<Product> list_product){            // получает список продуктов в автомате
         Scanner scan = new Scanner(System.in);
@@ -54,32 +55,53 @@ public class Add_Order {
                 id_category = scan.nextInt();
                 scan.nextLine();
                 if (id_category==1){
+                    ArrayList <Food> list = new ArrayList<>();
                     for (Product el : list_product) {                                       // Пробегает весь список товаров 
                         if (el instanceof Food ){                                           // и показывает те которые подходят к выбранной категории
                             if (el.getQuantity()>0){
-                                System.out.print(el);                                       
-                            }
-                        }
-                    }    
-                }        
-                if (id_category== 2){                                                       // Пробегает весь список товаров 
-                    for (Product el : list_product) {                                       // и показывает те которые подходят к выбранной категории
-                        if (el instanceof Beverage ){
-                            if (el.getQuantity()>0){
-                                System.out.print(el);
+                                list.add((Food)el);                                       
                             }
                         }
                     }
-                }
-                if (id_category == 3){                                                      // Пробегает весь список товаров 
-                    for (Product el : list_product) {                                       // и показывает те которые подходят к выбранной категории
-                        if (el instanceof Hot_beverage ){
+                    list = new SortWeight().getSortWeight(list); 
+                    System.out.println(list);   
+                }       
+                if (id_category== 2){                                                       
+                    ArrayList <Beverage> list = new ArrayList<>();                                                      
+                    for (Product el : list_product) {                                       // Пробегает весь список товаров 
+                        if (el instanceof Beverage ){                                       // и показывает те которые подходят к выбранной категории
                             if (el.getQuantity()>0){
-                                System.out.print(el);
+                                list.add((Beverage) el);
                             }
                         }
                     }
+                    list = new SortVolume().getSortVoiume(list); 
+                    System.out.println(list); 
                 }
+                if (id_category == 3){
+                    System.out.println();
+                    System.out.println("[1] Отсортировать по объему");
+                    System.out.println("[2] Отсортировать по температуре");         // Меню выбора категории
+                    System.out.print("Выберете команду: ");
+                    int id_cat= scan.nextInt();
+                    scan.nextLine(); 
+                    ArrayList <Hot_beverage> list = new ArrayList<>();                                                      
+                    for (Product el : list_product) {                                       // Пробегает весь список товаров
+                        if (el instanceof Hot_beverage ){                                   // и показывает те которые подходят к выбранной категории
+                            if (el.getQuantity()>0){
+                                list.add((Hot_beverage) el);
+                            }
+                        }
+                    }
+                    if (id_cat == 1){
+                        list = new SortTemp().getSortVoiumeTemp(list);
+                        System.out.println(list);
+                    }
+                    else {
+                        list = new SortTemp().getSortTemp(list); 
+                        System.out.println(list);
+                    }
+                } 
             }
             
             if (idCommand==2){                                                              // Показывает товар с совпадающим названием
@@ -186,4 +208,5 @@ public class Add_Order {
         }
     return list_order;
     }
+
 }

@@ -2,15 +2,15 @@ package OOP_java_sem2.shipment;
 
 import java.util.Calendar;
 
-public class Food extends Product{
+public class Food  extends Product{
                                                 // Конструктор объектов класса еда
-    private double weight;
+    private int weight;
 
-    public Food(int id, String name, int price, int quantity, Calendar best_before, double weight){
+    public Food(int id, String name, int price, int quantity, Calendar best_before, int weight){
         super(id, name, price, quantity, best_before);
         this.weight = weight;
     }
-    public double getWeight() {
+    public int getWeight() {
         return weight;
     }
 
